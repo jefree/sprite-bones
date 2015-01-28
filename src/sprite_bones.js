@@ -45,5 +45,15 @@ Phaser.Plugin.SpriteBones.prototype._extendSprite = function(sprite, armature) {
 }
 
 Phaser.Plugin.SpriteBones.prototype.update = function() {
-  dragonBones.animation.WorldClock.clock.advanceTime(0.02);
+
+  if (this.lastTime) {
+    var currentTime = new Date();
+    var elapsedTime = (currentTime - this.lastTime)  / 1000.0;
+
+    this.lastTime = currentTime;
+    dragonBones.animation.WorldClock.clock.advanceTime(elapsedTime);
+  }
+  else {
+    this.lastTime = new Date();
+  }
 }
