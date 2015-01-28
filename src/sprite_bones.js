@@ -1,5 +1,6 @@
 Phaser.Plugin.SpriteBones = function(game, parent) {
   Phaser.Plugin.call(this, game, parent);
+  dragonBones.game = game;
 }
 
 Phaser.Plugin.SpriteBones.prototype = Object.create(Phaser.Plugin.prototype);
