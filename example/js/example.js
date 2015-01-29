@@ -14,12 +14,16 @@ Example.prototype = {
 
   create: function() {
 
-    var moto = game.spritebones.addSprite('moto', 'motorcycleMan', 'Motorcycle', 100, 100);
-    moto.gotoAndPlay('left', 0.2);
+    this.moto = game.spritebones.addSprite('moto', 'motorcycleMan', 'Motorcycle', 300, 300);
+    this.moto.gotoAndPlay('stay');
+
+    game.input.onDown.add(function(){
+      this.moto.stop();
+    }, this);
   },
 
   update: function() {
-
+    
   },
 
   render: function() {

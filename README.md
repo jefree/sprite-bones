@@ -1,7 +1,10 @@
-To contribute to this porject please install Uglify-JS:
+Install dependecies:
+
+  npm install -g gulp
+  npm install
+
+Run the server and watcher:
   
-  npm install -g uglify-js
+  gulp
 
-And when you make a change please uglify the src folder:
-
-  uglifyjs src/* -o dist/sprite_bones.min.js
+Code and Fun ^^

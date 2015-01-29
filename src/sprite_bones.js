@@ -21,7 +21,7 @@ Phaser.Plugin.SpriteBones.prototype.addSprite = function(key, armatureName, skel
   var atlasData = this.game.cache.getJSON(key + '_atlas');
   var texture = game.cache.getImage(key + "_image");
 
-  var armature = dragonBones.makePhaserArmature(armatureName, skeletonName, '',  skeletonData, atlasData, texture, [], key);
+  var armature = dragonBones.makePhaserArmature(armatureName, skeletonName, null,  skeletonData, atlasData, texture, [], key);
   var bones = armature.getDisplay();
 
   dragonBones.animation.WorldClock.clock.add(armature);
@@ -37,6 +37,14 @@ Phaser.Plugin.SpriteBones.prototype.addSprite = function(key, armatureName, skel
 Phaser.Plugin.SpriteBones.prototype._extendSprite = function(sprite, armature) {
 
   sprite._armature = armature;
+
+  sprite.play = function() {
+    this._armature.animation.play();
+  }
+
+  sprite.stop = function() {
+    this._armature.animation.stop();
+  }
 
   sprite.gotoAndPlay = function(animationName, fadeInTime, duration, loop, layer, group, fadeOutMode, displayControl, pauseFadeOut, pauseFadeIn) {
     this._armature.animation.gotoAndPlay(animationName, fadeInTime, duration, loop, layer, group, fadeOutMode, displayControl, pauseFadeOut, pauseFadeIn);
