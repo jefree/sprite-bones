@@ -34,6 +34,50 @@ Phaser.Plugin.SpriteBones.prototype.addSprite = function(key, armatureName, skel
   return this.game.world.add(bones);
 }
 
+/**
+ * Set a new BitmapData as texture for the given sprite, with the current sprite texture 
+ * as initial data. Save the bitmap for the future as _bitmap attribute in the sprite.
+ */
+Phaser.Plugin.SpriteBones.prototype._asBitmapData = function(sprite, texture) {
+  
+  var bitmap = null;
+
+  if (texture) {
+    sprite.loadTexture(texture);
+  }
+
+  if (sprite._bitmap) {
+    sprite._bitmap.clear().update();
+    bitmap = sprite._bitmap;
+  }
+  else {
+    bitmap = this.game.make.bitmapData(sprite.width, sprite.height);
+  }
+
+  bitmap.draw(sprite, 0, 0);
+  bitmap.update();
+
+  sprite.loadTexture(bitmap);
+  sprite._bitmap = bitmap;
+}
+
+/**
+ * Multiply the bitmapData of the sprite by the given blending (Sprite, Image, Text).
+ */
+Phaser.Plugin.SpriteBones.prototype._applyMultiplyBlending = function(sprite, blending, x, y) {
+  /*
+    default values
+   */
+  x = x || 0;
+  y = y || 0;
+
+  var bitmap = sprite._bitmap;
+  
+  bitmap.blendMultiply();
+  bitmap.draw(blending, x, y);
+  bitmap.blendReset();
+}
+
 Phaser.Plugin.SpriteBones.prototype._extendSprite = function(sprite, armature) {
 
   sprite._armature = armature;
